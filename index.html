@@ -1,87 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: gray;
-            text-align: center;
-            padding: 20px;
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:"zaheerlogo.png"; 
+            background-repeat: repeat; 
+            background-size: 200px auto; 
+            background-attachment: fixed; 
+            background-color: #000000;
+
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: gold; /* Change the heading color to stand out */
+            text-shadow: 2px 2px 4px #000000; /* Add a shadow for better contrast */
         }
-
-        .slider {
-            width: 100%;
-            max-width: 700px;
-            margin: auto;
-            position: relative;
-        }
-
-        .slides {
-            display: none;
-            width: 100%;                 
-            height: auto;                
+        
+        .slider {
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.85); /* Add a slight white background to the slider for menu visibility */
+            padding: 10px;
             border-radius: 10px;
-            object-fit: contain;       
-        }
-
-        .btn {
-            cursor: pointer;
-            padding: 10px 20px;
-            background: black;
-            color: white;
-            border: none;
-            font-size: 18px;
-            border-radius: 5px;
-            margin: 10px;
-        }
-
-        .btn:hover {
-            background: white;
-            color: black;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Zaheer Caterers Menu</h1>
-
-    <div class="slider">
-        <img class="slides" src="cover page.jpeg" alt="Image 1">
-        <img class="slides" src="menu2.jpeg" alt="Image 2">
-        <img class="slides" src="menu.jpeg" alt="Image 3">
-        <img class="slides" src="menu3.jpeg" alt="Image 4">
-    </div>
-
-    <br>
-
-    <button class="btn" onclick="changeSlide(-1)">Previous</button>
-    <button class="btn" onclick="changeSlide(1)">Next</button>
-
-    <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
-
-        function changeSlide(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function showSlides(n) {
-            let slides = document.getElementsByClassName("slides");
-
-            if (n > slides.length) slideIndex = 1;
-            if (n < 1) slideIndex = slides.length;
-
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-
-            slides[slideIndex - 1].style.display = "block";
-        }
-    </script>
-
-</body>
-</html>
