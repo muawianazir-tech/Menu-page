@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaheer Caterers - Complete Menu</title>
+    <title>Zaheer Caterers - Interactive Royal Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@500&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,914 +14,1199 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Cormorant Garamond', serif;
             background: 
-                radial-gradient(circle at 20% 20%, #4a1e0e 0%, #2c0b02 25%, #1a0400 50%, #000000 100%),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="saffron" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0,10 Q5,0 10,10 T20,10" fill="none" stroke="%23D4AF37" stroke-opacity="0.1" stroke-width="0.5"/><path d="M10,0 Q15,10 10,20 T10,20" fill="none" stroke="%23FFD700" stroke-opacity="0.1" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23saffron)"/></svg>');
-            color: #f8f8f8;
+                radial-gradient(ellipse at top left, #0a0a0a 0%, #000000 70%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(212, 175, 55, 0.02) 2px,
+                    rgba(212, 175, 55, 0.02) 4px
+                );
+            color: #FFD700;
             min-height: 100vh;
-            padding: 20px;
+            padding: 30px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             position: relative;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 30%, rgba(139, 0, 0, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 50% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 20%);
-            pointer-events: none;
-        }
-
-        body::after {
-            content: "";
+        /* Golden Particles Animation */
+        .gold-particle {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0, 0, 0, 0.03) 2px,
-                    rgba(0, 0, 0, 0.03) 4px
-                );
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
 
+        /* Main Menu Container */
         .menu-container {
-            max-width: 1200px;
             width: 100%;
+            max-width: 1400px;
             background: 
-                linear-gradient(135deg, 
-                    rgba(44, 24, 16, 0.95) 0%, 
-                    rgba(30, 15, 8, 0.98) 100%);
-            border-radius: 25px;
+                linear-gradient(145deg, 
+                    rgba(0, 0, 0, 0.95) 0%, 
+                    rgba(15, 15, 15, 0.98) 100%);
+            border-radius: 35px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(212, 175, 55, 0.3),
-                0 0 30px rgba(212, 175, 55, 0.2) inset;
+                0 35px 120px rgba(212, 175, 55, 0.25),
+                0 0 0 2px rgba(212, 175, 55, 0.15),
+                0 0 150px rgba(212, 175, 55, 0.1) inset,
+                0 0 300px rgba(0, 0, 0, 0.9);
             overflow: hidden;
-            border: 3px solid transparent;
-            background-clip: padding-box;
+            border: 3px solid rgba(212, 175, 55, 0.3);
             position: relative;
             z-index: 1;
-            backdrop-filter: blur(5px);
         }
 
-        .menu-container::before {
+        /* Decorative Corners */
+        .corner-decoration {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            z-index: 2;
+        }
+
+        .corner-tl { top: -3px; left: -3px; }
+        .corner-tr { top: -3px; right: -3px; transform: rotate(90deg); }
+        .corner-bl { bottom: -3px; left: -3px; transform: rotate(-90deg); }
+        .corner-br { bottom: -3px; right: -3px; transform: rotate(180deg); }
+
+        .corner-decoration::before {
             content: "";
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                #D4AF37, 
-                #FFD700, 
-                #8B0000, 
-                #D4AF37);
-            border-radius: 27px;
-            z-index: -1;
-            animation: borderGlow 3s infinite linear;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 45%, #D4AF37 50%, transparent 55%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
         }
 
-        @keyframes borderGlow {
-            0% { opacity: 0.5; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.5; }
-        }
-
+        /* Header Section */
         .menu-header {
-            background: 
-                linear-gradient(135deg, 
-                    rgba(139, 0, 0, 0.9) 0%, 
-                    rgba(160, 82, 45, 0.9) 100%),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><pattern id="diamond" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 L-10,5 Z" fill="%23FFD700" fill-opacity="0.1"/></pattern><rect width="100" height="100" fill="url(%23diamond)"/></svg>');
-            padding: 40px;
-            text-align: center;
             position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid #D4AF37;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .menu-header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                #D4AF37, 
-                #FFD700, 
-                #D4AF37, 
-                transparent);
-        }
-
-        .menu-header::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            padding: 60px 50px;
             background: 
-                radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+                linear-gradient(165deg, 
+                    rgba(20, 20, 20, 0.95) 0%, 
+                    rgba(0, 0, 0, 0.98) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><defs><pattern id="royalPattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20,0 Q40,20 20,40 Q0,20 20,0 Z" fill="none" stroke="%23D4AF37" stroke-width="0.3" stroke-opacity="0.08"/></pattern></defs><rect width="120" height="120" fill="url(%23royalPattern)"/></svg>');
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
         }
 
-        .logo-container {
+        .header-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            filter: blur(40px);
+        }
+
+        .logo-display {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
+            gap: 50px;
+            margin-bottom: 30px;
             position: relative;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(212, 175, 55, 0.2) inset;
         }
 
-        .logo-img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
+        .logo-frame {
+            width: 180px;
+            height: 180px;
+            border: 5px solid #D4AF37;
             border-radius: 50%;
-            border: 3px solid #D4AF37;
-            padding: 8px;
+            padding: 15px;
             background: 
-                radial-gradient(circle, 
-                    rgba(212, 175, 55, 0.2) 0%, 
-                    rgba(139, 0, 0, 0.3) 100%);
+                radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%),
+                linear-gradient(145deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
             box-shadow: 
-                0 0 30px rgba(212, 175, 55, 0.4),
-                0 0 60px rgba(139, 0, 0, 0.3);
-            animation: logoPulse 4s infinite ease-in-out;
+                0 0 60px rgba(212, 175, 55, 0.4),
+                0 0 120px rgba(212, 175, 55, 0.2),
+                inset 0 0 40px rgba(212, 175, 55, 0.1);
+            animation: rotateFrame 20s linear infinite;
         }
 
-        @keyframes logoPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+        @keyframes rotateFrame {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .header-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        .menu-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: #FFD700;
-            text-shadow: 
-                3px 3px 0 #8B0000,
-                6px 6px 20px rgba(0, 0, 0, 0.8);
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            position: relative;
-            padding: 10px 30px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(0, 0, 0, 0.3), 
-                transparent);
-            border-radius: 10px;
-        }
-
-        .menu-subtitle {
-            font-size: 1.3rem;
-            color: #FFEBCD;
-            font-style: italic;
-            letter-spacing: 2px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 25px;
-            border-radius: 25px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .est-year {
-            font-size: 1.1rem;
-            color: #D4AF37;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 30px;
-            border-radius: 25px;
-            border: 2px solid #D4AF37;
-            margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .est-year::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .logo-frame img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 215, 0, 0.2), 
-                transparent);
-            transition: left 0.5s;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: brightness(1.2) contrast(1.1);
         }
 
-        .est-year:hover::before {
-            left: 100%;
+        .title-container {
+            text-align: center;
+            position: relative;
         }
 
-        .menu-content {
-            padding: 40px 30px;
-            background: 
-                linear-gradient(180deg, 
-                    rgba(26, 18, 8, 0.95) 0%, 
-                    rgba(40, 25, 15, 0.98) 100%),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30,5 C40,5 48,13 48,23 C48,33 40,41 30,41 C20,41 12,33 12,23 C12,13 20,5 30,5 Z" fill="none" stroke="%235D4037" stroke-width="0.3" stroke-opacity="0.1"/></svg>');
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, 
+                #D4AF37 0%, 
+                #FFD700 25%, 
+                #F5D76E 50%, 
+                #FFD700 75%, 
+                #D4AF37 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            position: relative;
+            text-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
         }
 
-        .menu-section {
-            margin-bottom: 50px;
-            background: 
-                linear-gradient(135deg, 
-                    rgba(60, 35, 20, 0.9) 0%, 
-                    rgba(40, 20, 10, 0.95) 100%);
-            border-radius: 20px;
-            padding: 40px;
-            border: 2px solid #5D4037;
+        .subtitle {
+            font-size: 1.6rem;
+            color: #FFE4B5;
+            font-style: italic;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            padding: 12px 35px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .establishment {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #D4AF37;
+            padding: 12px 40px;
+            background: linear-gradient(145deg, 
+                rgba(212, 175, 55, 0.1) 0%, 
+                rgba(0, 0, 0, 0.6) 100%);
+            border-radius: 50px;
+            border: 2px solid #D4AF37;
+            display: inline-block;
             box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.7),
-                0 0 0 1px rgba(212, 175, 55, 0.1),
-                0 0 20px rgba(212, 175, 55, 0.05) inset;
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(212, 175, 55, 0.1) inset;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
-        .menu-section:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
+        .establishment:hover {
+            transform: translateY(-3px);
             box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(212, 175, 55, 0.3),
-                0 0 30px rgba(212, 175, 55, 0.1) inset;
+                0 20px 50px rgba(212, 175, 55, 0.2),
+                0 0 35px rgba(212, 175, 55, 0.15) inset;
         }
 
-        .menu-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                #D4AF37, 
-                #FFD700, 
-                #D4AF37, 
-                transparent);
-            opacity: 0.5;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: #FFD700;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #8B0000;
-            position: relative;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .section-title::after {
-            content: "✦";
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #FFD700;
-            background: rgba(60, 35, 20, 0.95);
-            padding: 0 25px;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .menu-items {
+        /* Category Navigation */
+        .category-nav {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .category-card {
+            background: 
+                linear-gradient(145deg, 
+                    rgba(25, 25, 25, 0.8) 0%, 
+                    rgba(0, 0, 0, 0.9) 100%);
+            border-radius: 18px;
+            padding: 30px 25px;
+            border: 2px solid rgba(212, 175, 55, 0.15);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 
+                0 20px 50px rgba(212, 175, 55, 0.2),
+                0 0 35px rgba(212, 175, 55, 0.1) inset;
+        }
+
+        .category-card.active {
+            border-color: #D4AF37;
+            background: 
+                linear-gradient(145deg, 
+                    rgba(40, 25, 0, 0.8) 0%, 
+                    rgba(0, 0, 0, 0.9) 100%);
+            box-shadow: 
+                0 25px 60px rgba(212, 175, 55, 0.3),
+                0 0 45px rgba(212, 175, 55, 0.15) inset;
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+
+        .category-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+        }
+
+        .category-count {
+            color: #FFE4B5;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Menu Content Area */
+        .menu-content {
+            padding: 40px;
+            min-height: 600px;
+            position: relative;
+        }
+
+        /* Menu Items Display */
+        .items-display {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .items-display.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .items-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .items-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, 
+                #FFD700 0%, 
+                #D4AF37 50%, 
+                #B8860B 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .items-count {
+            color: #FFE4B5;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
 
         .menu-item {
             background: 
-                linear-gradient(135deg, 
-                    rgba(80, 50, 30, 0.8) 0%, 
-                    rgba(60, 35, 20, 0.9) 100%);
-            border-radius: 12px;
-            padding: 18px;
-            transition: all 0.3s ease;
-            border: 1px solid #8B4513;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+                linear-gradient(145deg, 
+                    rgba(25, 25, 25, 0.8) 0%, 
+                    rgba(0, 0, 0, 0.9) 100%);
+            border-radius: 18px;
+            padding: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
         }
 
         .menu-item:hover {
-            transform: translateY(-3px);
-            background: 
-                linear-gradient(135deg, 
-                    rgba(100, 65, 40, 0.9) 0%, 
-                    rgba(80, 50, 30, 0.95) 100%);
-            border-color: #D4AF37;
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
             box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.4),
-                0 0 15px rgba(212, 175, 55, 0.2);
-        }
-
-        .menu-item::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 215, 0, 0.1), 
-                transparent);
-            transition: left 0.5s;
-        }
-
-        .menu-item:hover::before {
-            left: 100%;
+                0 15px 40px rgba(212, 175, 55, 0.15),
+                0 0 25px rgba(212, 175, 55, 0.08) inset;
         }
 
         .item-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: #D4AF37;
-            min-width: 40px;
-            text-align: center;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px;
-            border-radius: 8px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, 
+                #D4AF37 0%, 
+                #FFD700 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .item-name {
-            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
             color: #FFD700;
+            margin-bottom: 10px;
+            padding-right: 55px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
             font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        /* Category-specific colors */
-        .mutton-section .item-name {
-            color: #FF7F50;
-            text-shadow: 1px 1px 2px rgba(139, 0, 0, 0.5);
+        .item-description {
+            color: #FFE4B5;
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.6;
         }
 
-        .mutton-section .section-title {
-            color: #FF7F50;
-        }
-
-        .chicken-section .item-name {
-            color: #FFD700;
-        }
-
-        .pulao-section .item-name {
-            color: #98FB98;
-            text-shadow: 1px 1px 2px rgba(0, 100, 0, 0.5);
-        }
-
-        .pulao-section .section-title {
-            color: #98FB98;
-        }
-
-        .special-section .item-name {
-            color: #DDA0DD;
-            text-shadow: 1px 1px 2px rgba(128, 0, 128, 0.5);
-        }
-
-        .special-section .section-title {
-            color: #DDA0DD;
-        }
-
-        .gravy-section .item-name {
-            color: #FFA07A;
-            text-shadow: 1px 1px 2px rgba(139, 0, 0, 0.5);
-        }
-
-        .gravy-section .section-title {
-            color: #FFA07A;
-        }
-
-        .menu-footer {
+        /* Special Items */
+        .special-item {
+            border: 2px solid rgba(212, 175, 55, 0.3);
             background: 
-                linear-gradient(135deg, 
-                    rgba(44, 24, 16, 0.95) 0%, 
-                    rgba(26, 12, 8, 0.98) 100%);
-            padding: 40px 30px;
-            text-align: center;
-            border-top: 3px solid #D4AF37;
-            position: relative;
-            overflow: hidden;
+                linear-gradient(145deg, 
+                    rgba(40, 25, 0, 0.8) 0%, 
+                    rgba(0, 0, 0, 0.9) 100%);
         }
 
-        .menu-footer::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                #D4AF37, 
-                transparent);
+        .special-item .item-number {
+            border: 2px solid rgba(212, 175, 55, 0.5);
         }
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 30px;
+            gap: 10px;
+            color: #D4AF37;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
         }
 
-        .contact-item {
+        .back-button:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
+            transform: translateX(-5px);
+        }
+
+        /* Footer */
+        .menu-footer {
+            padding: 50px 40px;
+            background: 
+                linear-gradient(145deg, 
+                    rgba(20, 20, 20, 0.95) 0%, 
+                    rgba(0, 0, 0, 0.98) 100%);
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .contact-info, .hours {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .contact-info:hover, .hours:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .contact-info h3, .hours h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-detail {
             display: flex;
             align-items: center;
             gap: 15px;
-            color: #FFEBCD;
-            font-size: 1.2rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px 30px;
-            border-radius: 25px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 15px;
+            color: #FFE4B5;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail i {
+            color: #D4AF37;
+            font-size: 1.3rem;
+        }
+
+        .phone-link {
+            color: #FFE4B5;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
 
-        .contact-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: #D4AF37;
-            transform: translateY(-2px);
-        }
-
-        .contact-item i {
-            color: #D4AF37;
-            font-size: 1.4rem;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        .hours {
-            background: 
-                linear-gradient(135deg, 
-                    rgba(212, 175, 55, 0.1) 0%, 
-                    rgba(139, 0, 0, 0.1) 100%);
-            padding: 25px;
-            border-radius: 20px;
-            border: 2px solid #D4AF37;
-            max-width: 400px;
-            margin: 0 auto;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(212, 175, 55, 0.1) inset;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hours h3 {
+        .phone-link:hover {
             color: #FFD700;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-decoration: underline;
         }
 
         .hours p {
-            color: #FFEBCD;
+            text-align: center;
+            color: #FFE4B5;
             font-size: 1.1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
         }
 
-        .hours::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 100% 0%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
-            pointer-events: none;
+        /* Chicken Biryani Icon */
+        .chicken-biryani-icon {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-title {
+                font-size: 3.8rem;
+            }
+            .items-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-title {
+                font-size: 3rem;
+                letter-spacing: 6px;
+            }
+            .logo-display {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .category-nav {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .logo-frame {
+                width: 150px;
+                height: 150px;
+            }
         }
 
         @media (max-width: 768px) {
-            .menu-title {
-                font-size: 2.5rem;
+            body {
+                padding: 15px;
             }
-            
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .menu-container {
+                border-radius: 25px;
             }
-            
-            .menu-section {
+            .menu-header, .menu-content, .menu-footer {
                 padding: 30px 20px;
             }
-            
-            .section-title {
-                font-size: 1.8rem;
+            .main-title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
             }
-            
-            .logo-container {
-                flex-direction: column;
-                text-align: center;
+            .subtitle {
+                font-size: 1.3rem;
             }
-            
-            .logo-img {
-                width: 100px;
-                height: 100px;
+            .category-nav {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            .items-title {
+                font-size: 2.2rem;
             }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
-            .menu-container {
-                border-radius: 20px;
-            }
-            
-            .menu-header {
-                padding: 30px 20px;
-            }
-            
-            .menu-title {
+            .main-title {
                 font-size: 2rem;
-                letter-spacing: 2px;
-                padding: 8px 20px;
+                letter-spacing: 3px;
             }
-            
-            .menu-section {
-                padding: 20px 15px;
+            .logo-frame {
+                width: 120px;
+                height: 120px;
             }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
+            .menu-item {
+                padding: 20px;
             }
-            
             .item-name {
-                font-size: 1.1rem;
+                font-size: 1.3rem;
             }
-            
-            .logo-img {
-                width: 80px;
-                height: 80px;
+            .category-card {
+                padding: 25px 20px;
             }
-        }
-
-        /* Floating particles animation */
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
+            .category-title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating particles background -->
-    <div class="floating-particles" id="particles"></div>
+    <!-- Golden Particles Background -->
+    <div id="particles"></div>
+
+    <!-- Corner Decorations -->
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
 
     <div class="menu-container">
+        <!-- Header -->
         <div class="menu-header">
-            <div class="logo-container">
-                <img src="zaheerlogo.jpg" alt="Zaheer Caterers Logo" class="logo-img">
-                <div class="header-text">
-                    <h1 class="menu-title">ZAHEER CATERERS</h1>
-                    <p class="menu-subtitle">Complete Menu - All Items</p>
-                    <div class="est-year">Serving Since 1995</div>
+            <div class="header-glow"></div>
+            <div class="logo-display">
+                <div class="logo-frame">
+                    <img src="zaheerlogo.jpg" alt="Zaheer Caterers Royal Logo" onerror="this.style.display='none'">
+                </div>
+                <div class="title-container">
+                    <h1 class="main-title">ZAHEER CATERERS</h1>
+                    <p class="subtitle">Exquisite Indian Cuisine & Premium Catering</p>
+                    <div class="establishment">ESTABLISHED 2011</div>
                 </div>
             </div>
         </div>
 
-        <div class="menu-content">
-            <!-- STARTERS SECTION -->
-            <div class="menu-section">
-                <h2 class="section-title">STARTER COLLECTION</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">100+</div>
-                        <div class="item-name">EXQUISITE STARTERS</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MUTTON GRAVY SECTION -->
-            <div class="menu-section gravy-section">
-                <h2 class="section-title">MUTTON GRAVY & CURRIES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">01</div>
-                        <div class="item-name">MUTTON GRAVY</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">02</div>
-                        <div class="item-name">MUTTON PALAK GOSHT</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">03</div>
-                        <div class="item-name">MUTTON GREEN KORMA</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">04</div>
-                        <div class="item-name">MUTTON WHITE KORMA</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">05</div>
-                        <div class="item-name">MUTTON ALOO GOSHT</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">06</div>
-                        <div class="item-name">MUTTAN SHIMA BHUNA</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">07</div>
-                        <div class="item-name">MUTTON DO PUA JO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">08</div>
-                        <div class="item-name">MUTTON LAAL MASALA</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">09</div>
-                        <div class="item-name">MUTTON NIHARI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">10</div>
-                        <div class="item-name">MUTTON BUKHARA</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">11</div>
-                        <div class="item-name">MUTTON BLACK GHOST</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MUTTON BIRYANI SECTION -->
-            <div class="menu-section mutton-section">
-                <h2 class="section-title">MUTTON BIRYANI COLLECTION</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">01</div>
-                        <div class="item-name">MUTTON BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">02</div>
-                        <div class="item-name">MUTTON DUM BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">03</div>
-                        <div class="item-name">MUTTON TIKKA BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">04</div>
-                        <div class="item-name">MUTTON TANDOORI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">05</div>
-                        <div class="item-name">MUTTON WHITE BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">06</div>
-                        <div class="item-name">MUTTON GREEN BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">07</div>
-                        <div class="item-name">MUTTON AFGHANI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">08</div>
-                        <div class="item-name">MUTTON LUCKNOWI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">09</div>
-                        <div class="item-name">MUTTON HYDERABADI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">10</div>
-                        <div class="item-name">MUTTON SEEKH BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">11</div>
-                        <div class="item-name">MUTTON KEEMA BIRYANI</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CHICKEN BIRYANI SECTION -->
-            <div class="menu-section chicken-section">
-                <h2 class="section-title">CHICKEN BIRYANI COLLECTION</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">01</div>
-                        <div class="item-name">CHICKEN BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">02</div>
-                        <div class="item-name">CHICKEN DUM BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">03</div>
-                        <div class="item-name">CHICKEN TIKKA BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">04</div>
-                        <div class="item-name">CHICKEN WHITE BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">05</div>
-                        <div class="item-name">CHICKEN AFGHANI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">06</div>
-                        <div class="item-name">CHICKEN TANDOORI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">07</div>
-                        <div class="item-name">CHICKEN GREEN BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">08</div>
-                        <div class="item-name">CHICKEN SHAIZWAN BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">09</div>
-                        <div class="item-name">CHICKEN LUCKNOWI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">10</div>
-                        <div class="item-name">CHICKEN HYDERABADI BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">11</div>
-                        <div class="item-name">CHICKEN SEEKH BIRYANI</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CHICKEN PULAO SECTION -->
-            <div class="menu-section pulao-section">
-                <h2 class="section-title">CHICKEN PULAO COLLECTION</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">01</div>
-                        <div class="item-name">CHICKEN PULAO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">02</div>
-                        <div class="item-name">CHICKEN WHITE PULAO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">03</div>
-                        <div class="item-name">CHICKEN AFGHANI PULAO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">04</div>
-                        <div class="item-name">CHICKEN JEERA PULAO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">05</div>
-                        <div class="item-name">CHICKEN LUCKNOWI PULAO</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">06</div>
-                        <div class="item-name">ZAMZAM PULAO</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SPECIAL DISHES SECTION -->
-            <div class="menu-section special-section">
-                <h2 class="section-title">SPECIALTY DISHES</h2>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="item-number">S1</div>
-                        <div class="item-name">MALAI TIKKA BIRYANI</div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-number">S2</div>
-                        <div class="item-name">ZAMZAM BIRYANI</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-footer">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Shriwardhan, Maharashtra, India</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <span>+91 93564 23277</span>
-                </div>
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <div class="category-card" onclick="showCategory('starters')">
+                <div class="category-icon"><i class="fas fa-utensils"></i></div>
+                <h3 class="category-title">STARTERS</h3>
+                <p class="category-count">100+ Exquisite Dishes</p>
             </div>
             
-            <div class="hours">
-                <h3><i class="fas fa-clock"></i> Operating Hours</h3>
-                <p>Monday - Sunday: 07:00 AM - 12:00 PM</p>
+            <div class="category-card" onclick="showCategory('mutton-gravy')">
+                <div class="category-icon"><i class="fas fa-drumstick-bite"></i></div>
+                <h3 class="category-title">MUTTON CURRIES</h3>
+                <p class="category-count">11 Signature Dishes</p>
+            </div>
+            
+            <div class="category-card" onclick="showCategory('mutton-biryani')">
+                <div class="category-icon"><i class="fas fa-crown"></i></div>
+                <h3 class="category-title">MUTTON BIRYANI</h3>
+                <p class="category-count">11 Royal Varieties</p>
+            </div>
+            
+            <div class="category-card" onclick="showCategory('chicken-biryani')">
+                <div class="category-icon"><i class="fas fa-drumstick"></i></div>
+                <h3 class="category-title">CHICKEN BIRYANI</h3>
+                <p class="category-count">11 Premium Options</p>
+            </div>
+            
+            <div class="category-card" onclick="showCategory('chicken-pulao')">
+                <div class="category-icon"><i class="fas fa-utensil-spoon"></i></div>
+                <h3 class="category-title">CHICKEN PULAO</h3>
+                <p class="category-count">6 Special Varieties</p>
+            </div>
+            
+            <div class="category-card" onclick="showCategory('special')">
+                <div class="category-icon"><i class="fas fa-star"></i></div>
+                <h3 class="category-title">SPECIAL DISHES</h3>
+                <p class="category-count">12 Exclusive Creations</p>
+            </div>
+            
+            <div class="category-card" onclick="showCategory('sweets')">
+                <div class="category-icon"><i class="fas fa-ice-cream"></i></div>
+                <h3 class="category-title">SWEETS & DESSERTS</h3>
+                <p class="category-count">4 Delicious Treats</p>
+            </div>
+        </div>
+
+        <!-- Menu Content Area - Initially Hidden -->
+        <div class="menu-content" id="menu-content" style="display: none;">
+            <!-- Starters Category -->
+            <div class="items-display" id="starters-items">
+                <div class="items-header">
+                    <h2 class="items-title">STARTER COLLECTION</h2>
+                    <div class="items-count">100+ Items</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item special-item">
+                        <div class="item-number">★</div>
+                        <h3 class="item-name">100+ EXQUISITE STARTERS</h3>
+                        <p class="item-description">An extensive collection of premium appetizers, kebabs, and starters featuring the finest ingredients and traditional recipes from across India.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Mutton Gravy Category -->
+            <div class="items-display" id="mutton-gravy-items">
+                <div class="items-header">
+                    <h2 class="items-title">MUTTON CURRIES & GRAVY</h2>
+                    <div class="items-count">11 Signature Dishes</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">MUTTON GRAVY</h3>
+                        <p class="item-description">Rich and flavorful traditional mutton curry cooked with aromatic spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">MUTTON PALAK GOSHT</h3>
+                        <p class="item-description">Tender mutton cooked with fresh spinach in traditional spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">MUTTON GREEN KORMA</h3>
+                        <p class="item-description">Creamy green korma with tender mutton and aromatic herbs.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">MUTTON WHITE KORMA</h3>
+                        <p class="item-description">Mild white korma with cashew, cream, and delicate spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">MUTTON ALOO GOSHT</h3>
+                        <p class="item-description">Mutton cooked with potatoes in traditional Awadhi spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">MUTTON SHAMI BHUNA</h3>
+                        <p class="item-description">Spiced mutton fry with traditional bhuna preparation.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">07</div>
+                        <h3 class="item-name">MUTTON DO PYAZA</h3>
+                        <p class="item-description">Mutton cooked with double onions and rich spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">08</div>
+                        <h3 class="item-name">MUTTON LAAL MASALA</h3>
+                        <p class="item-description">Fiery red mutton curry with special masala blend.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">09</div>
+                        <h3 class="item-name">MUTTON NIHARI</h3>
+                        <p class="item-description">Slow-cooked traditional nihari with bone marrow.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">10</div>
+                        <h3 class="item-name">MUTTON BUKHARA</h3>
+                        <p class="item-description">Dum pukht style mutton with Bukhara spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">11</div>
+                        <h3 class="item-name">MUTTON BLACK GOSHT</h3>
+                        <p class="item-description">Special black pepper mutton with secret spices.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Mutton Biryani Category -->
+            <div class="items-display" id="mutton-biryani-items">
+                <div class="items-header">
+                    <h2 class="items-title">MUTTON BIRYANI COLLECTION</h2>
+                    <div class="items-count">11 Royal Varieties</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">MUTTON BIRYANI</h3>
+                        <p class="item-description">Traditional aromatic basmati rice with tender mutton pieces.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">MUTTON DUM BIRYANI</h3>
+                        <p class="item-description">Slow-cooked dum style mutton biryani with saffron.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">MUTTON TIKKA BIRYANI</h3>
+                        <p class="item-description">Tandoori mutton tikka pieces with fragrant basmati rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">MUTTON TANDOORI BIRYANI</h3>
+                        <p class="item-description">Smoky tandoori mutton with traditional biryani rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">MUTTON WHITE BIRYANI</h3>
+                        <p class="item-description">Mild white biryani with tender mutton and delicate spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">MUTTON GREEN BIRYANI</h3>
+                        <p class="item-description">Herb-infused green biryani with mint and coriander.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">07</div>
+                        <h3 class="item-name">MUTTON AFGHANI BIRYANI</h3>
+                        <p class="item-description">Creamy Afghani style mutton biryani with dry fruits.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">08</div>
+                        <h3 class="item-name">MUTTON LUCKNOWI BIRYANI</h3>
+                        <p class="item-description">Awadhi style dum biryani with delicate spices and saffron.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">09</div>
+                        <h3 class="item-name">MUTTON HYDERABADI BIRYANI</h3>
+                        <p class="item-description">Spicy Hyderabadi style mutton biryani with authentic masalas.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">10</div>
+                        <h3 class="item-name">MUTTON SEEKH BIRYANI</h3>
+                        <p class="item-description">Mutton seekh kebab biryani with charcoal flavor.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">11</div>
+                        <h3 class="item-name">MUTTON KEEMA BIRYANI</h3>
+                        <p class="item-description">Minced mutton biryani with special spice blend.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Chicken Biryani Category -->
+            <div class="items-display" id="chicken-biryani-items">
+                <div class="items-header">
+                    <h2 class="items-title">CHICKEN BIRYANI COLLECTION <i class="fas fa-drumstick chicken-biryani-icon"></i></h2>
+                    <div class="items-count">11 Premium Options</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">CHICKEN BIRYANI</h3>
+                        <p class="item-description">Traditional aromatic basmati rice with succulent chicken pieces.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">CHICKEN DUM BIRYANI</h3>
+                        <p class="item-description">Slow-cooked chicken biryani in traditional dum style.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">CHICKEN TIKKA BIRYANI</h3>
+                        <p class="item-description">Tandoori chicken tikka pieces layered with fragrant rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">CHICKEN WHITE BIRYANI</h3>
+                        <p class="item-description">Mild white biryani with chicken and aromatic spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">CHICKEN AFGHANI BIRYANI</h3>
+                        <p class="item-description">Creamy, rich biryani with Afghan-inspired spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">CHICKEN TANDOORI BIRYANI</h3>
+                        <p class="item-description">Smoky tandoori chicken with traditional biryani rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">07</div>
+                        <h3 class="item-name">CHICKEN GREEN BIRYANI</h3>
+                        <p class="item-description">Herb-infused green biryani with mint and spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">08</div>
+                        <h3 class="item-name">CHICKEN SHAHIWAN BIRYANI</h3>
+                        <p class="item-description">Special Shahiwani style chicken biryani with rich flavors.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">09</div>
+                        <h3 class="item-name">CHICKEN LUCKNOWI BIRYANI</h3>
+                        <p class="item-description">Awadhi style chicken dum biryani with delicate spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">10</div>
+                        <h3 class="item-name">CHICKEN HYDERABADI BIRYANI</h3>
+                        <p class="item-description">Spicy traditional Hyderabadi chicken biryani.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">11</div>
+                        <h3 class="item-name">CHICKEN SEEKH BIRYANI</h3>
+                        <p class="item-description">Chicken seekh kebab biryani with charcoal aroma.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Chicken Pulao Category -->
+            <div class="items-display" id="chicken-pulao-items">
+                <div class="items-header">
+                    <h2 class="items-title">CHICKEN PULAO COLLECTION</h2>
+                    <div class="items-count">6 Special Varieties</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">CHICKEN PULAO</h3>
+                        <p class="item-description">Traditional chicken pulao with aromatic spices and basmati rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">CHICKEN WHITE PULAO</h3>
+                        <p class="item-description">Mild white pulao with chicken, nuts, and delicate spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">CHICKEN AFGHANI PULAO</h3>
+                        <p class="item-description">Creamy Afghani style chicken pulao with dry fruits.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">CHICKEN JEERA PULAO</h3>
+                        <p class="item-description">Cumin flavored chicken pulao with aromatic rice.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">CHICKEN LUCKNOWI PULAO</h3>
+                        <p class="item-description">Awadhi style chicken pulao with delicate spices.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">ZAMZAM PULAO</h3>
+                        <p class="item-description">Special royal pulao with exotic spices and premium ingredients.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Special Dishes Category -->
+            <div class="items-display" id="special-items">
+                <div class="items-header">
+                    <h2 class="items-title">SPECIALTY DISHES</h2>
+                    <div class="items-count">12 Exclusive Creations</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item special-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">MUTTON JAFFRANI</h3>
+                        <p class="item-description">Rich mutton curry with saffron-infused gravy and premium spices.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">MUTTON AKHANI</h3>
+                        <p class="item-description">Special Awadhi style mutton preparation with unique spice blend.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">MUTTON BHUNA</h3>
+                        <p class="item-description">Dry mutton preparation cooked on slow fire with traditional bhuna technique.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">MUTTON BADAMI</h3>
+                        <p class="item-description">Creamy almond-based mutton curry with rich gravy.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">CHICKEN TIKKA MASALA</h3>
+                        <p class="item-description">Tandoori chicken tikka in rich, creamy tomato-based gravy.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">CHICKEN BHUNA</h3>
+                        <p class="item-description">Dry chicken preparation cooked with traditional bhuna spices.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">07</div>
+                        <h3 class="item-name">SEEKH BIRYANI</h3>
+                        <p class="item-description">Fragrant biryani layered with juicy seekh kebabs and basmati rice.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">08</div>
+                        <h3 class="item-name">MALAI TIKKA BIRYANI</h3>
+                        <p class="item-description">Creamy malai tikka chicken with mild spices and saffron rice.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">09</div>
+                        <h3 class="item-name">ZAMZAM BIRYANI</h3>
+                        <p class="item-description">Special royal biryani with premium ingredients and exotic spices.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">10</div>
+                        <h3 class="item-name">MUTTON KEEMA BIRYANI</h3>
+                        <p class="item-description">Minced mutton biryani cooked with special spices and basmati rice.</p>
+                    </div>
+                    <div class="menu-item special-item">
+                        <div class="item-number">11</div>
+                        <h3 class="item-name">MUTTON LUCKNOWI BIRYANI</h3>
+                        <p class="item-description">Authentic Awadhi style mutton dum biryani with delicate spices.</p>
+                    </div>
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+
+            <!-- Sweets & Desserts Category -->
+            <div class="items-display" id="sweets-items">
+                <div class="items-header">
+                    <h2 class="items-title">SWEETS & DESSERTS</h2>
+                    <div class="items-count">4 Delicious Treats</div>
+                </div>
+                <div class="items-grid">
+                    <div class="menu-item">
+                        <div class="item-number">01</div>
+                        <h3 class="item-name">SUJI HALWA</h3>
+                        <p class="item-description">Traditional semolina pudding cooked with ghee, sugar, and dry fruits.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">02</div>
+                        <h3 class="item-name">SHAHI TUKDA</h3>
+                        <p class="item-description">Fried bread in saffron syrup with rabri, nuts & silver leaf..</p>
+                    </div>
+		     <div class="menu-item">
+                        <div class="item-number">03</div>
+                        <h3 class="item-name">TIRANGA HALWA</h3>
+                        <p class="item-description">Three-layer halwa: saffron, milk & pistachio.</p>
+                    </div>
+		     <div class="menu-item">
+                        <div class="item-number">04</div>
+                        <h3 class="item-name">PINEAPPLE KA HALWA</h3>
+                        <p class="item-description">Fresh pineapple cooked with semolina, milk & nuts.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">05</div>
+                        <h3 class="item-name">GAJJAR KA HALWA</h3>
+                        <p class="item-description">Rich carrot pudding cooked with milk, ghee, and dry fruits.</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-number">06</div>
+                        <h3 class="item-name">KADDU KA HALWA</h3>
+                        <p class="item-description">Traditional pumpkin pudding with nuts and aromatic spices.</p>
+                    </div>
+		    <div class="menu-item">
+                        <div class="item-number">07</div>
+                        <h3 class="item-name">NORMAL ZARDA</h3>
+                        <p class="item-description">Traditional sweet rice with sugar, ghee & cardamom.</p>
+                    </div>
+		    <div class="menu-item">
+                        <div class="item-number">08</div>
+                        <h3 class="item-name">SPECIAL ZARDA</h3>
+                        <p class="item-description">Premium sweet rice with saffron, dry fruits & rose water.</p>
+                    </div>
+
+                </div>
+                <div class="back-button" onclick="hideCategory()">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="menu-footer" id="menu-footer">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <h3><i class="fas fa-crown"></i> CONTACT US</h3>
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Shriwardhan, Maharashtra, India</span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+919356423277" class="phone-link">+91 93564 23277</a>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <span>zaheer@caterers.com</span>
+                    </div>
+                </div>
+
+                <div class="hours">
+                    <h3><i class="fas fa-clock"></i> WORKING HOURS</h3>
+                    <p>Monday - Sunday</p>
+                    <p>08:00 AM - 10:00 PM</p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        // Create golden particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 12;
             
-            // Random size  const size = Math.random() * 100 + 50;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-          
-            particle.style.left = `${Math.random() * 100}%`;
-            
-            
-            particle.style.animationDelay = `${Math.random() * 5}s`;
-            
-           
-            particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
-            
-            particlesContainer.appendChild(particle);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('gold-particle');
+                
+                // Random properties
+                const size = Math.random() * 80 + 40;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 20;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
         }
 
-        
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
+        // Floating animation for particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatParticle {
+                0%, 100% {
+                    transform: translate(0, 0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.3;
+                }
+                90% {
+                    opacity: 0.3;
+                }
+                50% {
+                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(180deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Category Management
+        let currentCategory = null;
+
+        function showCategory(category) {
+            // Remove active class from all category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
             });
+
+            // Add active class to clicked category
+            event.currentTarget.classList.add('active');
+
+            // Hide category navigation and footer
+            document.querySelector('.category-nav').style.display = 'none';
+            document.getElementById('menu-footer').style.display = 'none';
+
+            // Show menu content area
+            document.getElementById('menu-content').style.display = 'block';
+
+            // Hide all item displays
+            document.querySelectorAll('.items-display').forEach(display => {
+                display.classList.remove('active');
+            });
+
+            // Show selected category items
+            document.getElementById(category + '-items').classList.add('active');
+            currentCategory = category;
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideCategory() {
+            // Show category navigation and footer
+            document.querySelector('.category-nav').style.display = 'grid';
+            document.getElementById('menu-footer').style.display = 'block';
+
+            // Hide menu content area
+            document.getElementById('menu-content').style.display = 'none';
+
+            // Remove active class from all category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            currentCategory = null;
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize particles
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
             
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(
+            // Add hover effects to menu items
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('special-item')) {
+                        this.style.transform = 'translateY(0)';
+                        this.style.borderColor = 'rgba(212, 175, 55, 0.1)';
+                    }
+                });
+            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && currentCategory) {
+                hideCategory();
+            }
+        });
+
+        // Make phone number clickable for calling
+        function makeCall() {
+            window.open('tel:+919356423277');
+        }
+    </script>
+</body>
+</html>
