@@ -3,45 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaheer Caterers Menu Slider</title>
-
+    <title>Zaheer Caterers - Premium Menu Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-     
-        body {
-            font-family: Arial, sans-serif;
-            
-            background-image: url('BACKGROUND.jpg'); 
-            background-repeat: no-repeat; 
-            background-position: center center; 
-            background-size: cover; 
-            background-attachment: fixed; 
-            
-            background-color: #000000; 
-            
-          
-            text-align: center;
-            padding: 20px;
-            color: white; 
+        * {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('BACKGROUND.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.8), rgba(184, 134, 11, 0.8));
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 3px solid gold;
+        }
+
         h1 {
-            color: gold; 
-            text-shadow: 2px 2px 4px #000000;
+            color: gold;
+            text-shadow: 3px 3px 6px #000000;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #FFD700;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 5px solid gold;
         }
 
         .slider {
             width: 100%;
-            max-width: 700px;
-            margin: auto;
             position: relative;
-           
-            background-color: rgba(255, 255, 255, 0.9); 
+            background-color: rgba(0, 0, 0, 0.3);
             padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            touch-action: pan-y;
         }
 
         .slides {
@@ -50,73 +83,394 @@
             height: auto;
             border-radius: 10px;
             object-fit: contain;
+            max-height: 500px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: gold;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(184, 134, 11, 0.9);
+            color: black;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .dots-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 8px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: gold;
+            transform: scale(1.2);
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
             cursor: pointer;
-            padding: 10px 20px;
-            background: black;
+            padding: 12px 28px;
+            background: linear-gradient(to right, #8B0000, #A52A2A);
             color: white;
             border: none;
             font-size: 18px;
-            border-radius: 5px;
-            margin: 10px;
-            transition: background 0.3s, color 0.3s;
+            border-radius: 50px;
+            margin: 5px;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover {
-            background: white;
+            background: linear-gradient(to right, gold, #FFD700);
             color: black;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .footer p {
+            color: #FFD700;
+            font-size: 1.1rem;
+            margin: 5px 0;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: gold;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: white;
+            transform: scale(1.2);
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: gold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 5;
+        }
+
+        .swipe-indicator {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: gold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 5;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+            
+            .prev, .next {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .prev {
+                left: 10px;
+            }
+            
+            .next {
+                right: 10px;
+            }
+            
+            .slides {
+                max-height: 400px;
+            }
+            
+            .swipe-indicator {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 90%;
+                justify-content: center;
+            }
+            
+            .slides {
+                max-height: 300px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Zaheer Caterers Menu</h1>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-utensils"></i> Zaheer Caterers</h1>
+            <p class="tagline">Authentic Indian Cuisine & Premium Catering Services</p>
+            <p>Serving Since 1995</p>
+        </div>
 
-    <div class="slider">
-        <img class="slides" src="zaheerlogo.jpg" alt="Image 1">
-        <img class="slides" src="cover.jpg" alt="Image 2">
-        <img class="slides" src="1.png" alt="Image 3">
-        <img class="slides" src="2.png" alt="Image 4">
-        <img class="slides" src="3.png" alt="Image 5">
-        <img class="slides" src="4.png" alt="Image 6">
+        <div class="slider-container">
+            <div class="slider">
+                <img class="slides" src="zaheerlogo.jpg" alt="Zaheer Caterers Logo">
+                <img class="slides" src="cover.jpg" alt="Our Special Menu">
+                <img class="slides" src="1.png" alt="Mutton Gravy">
+                <img class="slides" src="2.png" alt="Chicken Biyani">
+                <img class="slides" src="3.png" alt="Mutton Biryani">
+                <img class="slides" src="4.png" alt="Chicken Pulao">
+                
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">6</span>
+                </div>
+                
+                <div class="swipe-indicator">
+                    <i class="fas fa-arrows-left-right"></i> Swipe to navigate
+                </div>
+                
+                <a class="prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            
+            <div class="dots-container">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="changeSlide(-1)">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="btn" onclick="toggleAutoSlide()" id="autoBtn">
+                <i class="fas fa-pause"></i> Pause Auto
+            </button>
+            <button class="btn" onclick="changeSlide(1)">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn" onclick="location.href='#contact'">
+                <i class="fas fa-phone-alt"></i> Contact Us
+            </button>
+        </div>
+
+        <div class="footer" id="contact">
+            <p><i class="fas fa-map-marker-alt"></i> Shriwardhan,Maharashtra, India</p>
+            <p><i class="fas fa-phone"></i> +91 93564 23277</p>
+            
+        </div>
     </div>
 
-    <br>
-
-    <button class="btn" onclick="changeSlide(-1)">Previous</button>
-    <button class="btn" onclick="changeSlide(1)">Next</button>
-    
     <script>
         let slideIndex = 1;
-        showSlides(slideIndex);
-
+        let autoSlideInterval;
+        let isAutoSliding = true;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const swipeThreshold = 50;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides(slideIndex);
+            updateSlideCounter();
+            startAutoSlide();
+        });
+        
         function changeSlide(n) {
             showSlides(slideIndex += n);
+            resetAutoSlide();
         }
-
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+            resetAutoSlide();
+        }
+        
         function showSlides(n) {
             let slides = document.getElementsByClassName("slides");
-
+            let dots = document.getElementsByClassName("dot");
+            
             if (n > slides.length) slideIndex = 1;
             if (n < 1) slideIndex = slides.length;
-
+            
             for (let i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";
             }
-
+            
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
             if (slides.length > 0) {
-                 slides[slideIndex - 1].style.display = "block";
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+            }
+            
+            updateSlideCounter();
+        }
+        
+        function updateSlideCounter() {
+            let slides = document.getElementsByClassName("slides");
+            document.getElementById("current-slide").textContent = slideIndex;
+            document.getElementById("total-slides").textContent = slides.length;
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                if (isAutoSliding) {
+                    changeSlide(1);
+                }
+            }, 4000);
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            if (isAutoSliding) {
+                startAutoSlide();
             }
         }
+        
+        function toggleAutoSlide() {
+            isAutoSliding = !isAutoSliding;
+            const autoBtn = document.getElementById("autoBtn");
+            
+            if (isAutoSliding) {
+                autoBtn.innerHTML = '<i class="fas fa-pause"></i> Pause Auto';
+                startAutoSlide();
+            } else {
+                autoBtn.innerHTML = '<i class="fas fa-play"></i> Start Auto';
+                clearInterval(autoSlideInterval);
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === ' ') {
+                toggleAutoSlide();
+                event.preventDefault();
+            }
+        });
+        
+        document.querySelector('.slider').addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        });
+        
+        document.querySelector('.slider').addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                changeSlide(1);
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                changeSlide(-1);
+            }
+        });
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
